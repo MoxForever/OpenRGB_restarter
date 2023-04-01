@@ -1,4 +1,4 @@
-import os
+import subprocess
 import time
 
 import psutil
@@ -25,7 +25,11 @@ def restart_open_rgb():
         if proc.name() == "OpenRGB.exe":
             proc.kill()
 
-    os.startfile('OpenRGB.exe')
+    startupinfo = subprocess.STARTUPINFO()
+    startupinfo.dwFlags = subprocess.STARTF_USESHOWWINDOW
+    startupinfo.wShowWindow = 6      # start minimised
+
+    subprocess.Popen('OpenRGB.exe', startupinfo=startupinfo)
 
 
 try:
